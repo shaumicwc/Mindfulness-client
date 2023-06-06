@@ -1,33 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import { useAuth } from '../../Hooks/useAuth';
+import Loader from '../Shared/Loader/Loader';
 
 const Login = () => {
+    const [show, setShow] = useState(true)
+    const [showPass, setShowPass] = useState(true)
+    const [error, setError] = useState('')
+    const [photoUrl, setPhotoUrl] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data);
+    const { user, setUser, loading, setLoading, createUser, googleSignInUser, updateUserProfile } = useAuth()
+    const onSubmit = async data => {
+
+        setError('')
+
+        const photo = new FormData()
+        photo.append('image', data.photo[0])
+
+       await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_API_KEY}`, {
+            method: 'POST',
+            body: photo
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setPhotoUrl(data.data.display_url)
+                }
+            })
+
+       await createUser(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                updateUserProfile(data.name, photoUrl)
+                    .then(() => { })
+                    .catch((err) => {
+                        const errorMessage = err.message;
+                        console.log(errorMessage);
+                    });
+            })
+            .catch((err) => {
+                const errorMessage = err.message;
+                if (errorMessage === 'Firebase: Error (auth/invalid-email).') {
+                    setError('Please input a valid email address');
+                } else if (errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
+                    setError('This email already exists. Please login');
+                }
+                console.log(errorMessage);
+            });
     }
 
+    const handleGoogleSignIn = () => {
+        googleSignInUser()
+            .then(result => {
+                setUser(result.user)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
+    }
     return (
         <>
             <Helmet>
                 <title>MindFulness || Login</title>
             </Helmet>
+
             <div className='my-10 mx-auto w-2/3 md:w-1/3 bg-gray-200 p-10 shadow-2xl rounded-lg flex flex-col' >
-                <p className='text-4xl font-bold text-center mb-5'>Login</p>
+                {
+                    loading && <Loader />
+                }
+                <p className='text-4xl font-bold text-center mb-5'>Sign Up</p>
                 <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+                    <label className='text-xl font-semibold mb-3'>Name</label>
+                    <input placeholder='Name' className='mb-5 p-3 focus:outline-none' {...register('name')} />
                     <label className='text-xl font-semibold mb-3'>Email</label>
                     <input placeholder='Email' className='mb-5 p-3 focus:outline-none' {...register('email')} />
                     <label className='text-xl font-semibold mb-3'>Password</label>
-                    <input placeholder='Password' className='mb-5 p-3 focus:outline-none' type='password' {...register('password', { required: true })} />
-                    {errors.lastName && <p>Last name is required.</p>}
-                    <p className='mb-3'>Have not any account ? <Link to='/sign-up'><span className='underline'>Cerate Account</span></Link></p>
-                    <button type='submit' className='btn  btn-primary font-bold'>Login</button>
+                    <div className='relative w-full'>
+                        <input placeholder='Password' className='mb-5 w-full p-3 focus:outline-none' type={show ? 'text' : 'password'} {...register('password', { required: true })} />
+                        <div onClick={() => setShow(!show)} className='absolute inset-y-0 right-3 top-3.5'>
+                            {show ? <FaEye className='w-5 h-5' /> : <FaEyeSlash className='w-5 h-5' />}
+                        </div>
+                    </div>
+                    <label className='text-xl font-semibold mb-3'>Confirm Password</label>
+                    <div className='relative w-full'>
+                        <input placeholder='Password' className='mb-5 w-full p-3 focus:outline-none' type={showPass ? 'text' : 'password'} {...register('password', { required: true })} />
+                        <div onClick={() => setShowPass(!showPass)} className='absolute inset-y-0 right-3 top-3.5'>
+                            {showPass ? <FaEye className='w-5 h-5' /> : <FaEyeSlash className='w-5 h-5' />}
+                        </div>
+                    </div>
+                    <label className='text-xl font-semibold mb-3'>Photo Url</label>
+                    <input type="file" className="file-input file-input-bordered w-full mb-3" {...register('photo')} />
+                    <p className='mb-3'>Already have an account ? <Link to='/login'><span className='underline'>Please login</span></Link></p>
+                    <p className='text-red-800 py-3'>{error}</p>
+                    <button type='submit' className='btn  btn-primary font-bold'>Sign Up</button>
                 </form>
                 <div className='divider'>Or</div>
-                <div className='flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-gray-500 rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
+                <div onClick={handleGoogleSignIn} className='cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-gray-500 rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
             </div>
         </>
     );
