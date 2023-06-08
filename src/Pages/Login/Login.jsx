@@ -6,12 +6,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import { useAuth } from '../../Hooks/useAuth';
 import Loader from '../Shared/Loader/Loader';
+import axios from 'axios';
 
 const Login = () => {
     const [show, setShow] = useState(true)
     const [error, setError] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { setUser, loading, setLoading, signInUser, googleSignInUser, updateUserProfile} = useAuth()
+    const { setUser, loading, setLoading, signInUser, googleSignInUser} = useAuth()
     const onSubmit = data => {
         
         setError('')
@@ -25,22 +26,31 @@ const Login = () => {
             const errorMessage = err.message
             if (errorMessage === 'Firebase: Error (auth/invalid-email).') {
                 setError('Please Input a valid email address')
-            } else if (errorMessage === 'Firebase: Error (auth/email-already-in-use).'){
-                setError('This email already exists. Please Login')
+                setLoading(false)
+            } else if (errorMessage === 'Firebase: Error (auth/wrong-password).'){
+                setError('wrong password. Please try again')
+                setLoading(false)
             }
 
             console.log(errorMessage)
         })
-        
+        // console.log(data.photo[0].name);
     }
     const handleGoogleSignIn = () =>{
         googleSignInUser()
         .then(result =>{
-            setUser(result.user)
+            const user = result.user
+            const savedUser = {name: user.displayName ,email: user.email, role: 'student'}
+            axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
+            setUser(user)
             setLoading(false)
         })
         .catch(err =>{
+            if(err.message === 'Firebase: Error (auth/popup-closed-by-user).'){
+                setLoading(false)
+            }
             console.log(err.message)
+            setLoading(false)
         })
     }
 
@@ -56,7 +66,8 @@ const Login = () => {
                 <p className='text-4xl font-bold text-center mb-5'>Login</p>
                 <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
                     <label className='text-xl font-semibold mb-3'>Email</label>
-                    <input placeholder='Email' className='mb-5 p-3 focus:outline-none' {...register('email')} />
+                    <input placeholder='Email' className='mb-5 p-3 focus:outline-none' {...register('email', {required: true})} />
+                    {errors?.email?.type === 'required' && <p className='text-red-800 mb-2'>This field is required</p>}
                     <label className='text-xl font-semibold mb-3'>Password</label>
                     <div className='relative w-full'>
                         <input placeholder='Password' className='mb-5 w-full p-3 focus:outline-none' type={show ? 'text' : 'password'} {...register('password', { required: true })}/>
@@ -64,7 +75,7 @@ const Login = () => {
                             {show ? <FaEye className='w-5 h-5' /> : <FaEyeSlash className='w-5 h-5' />}
                         </div>
                     </div>
-                    {errors.lastName && <p>Last name is required.</p>}
+                    {errors?.password?.type === 'required' && <p className='text-red-800 mb-2'>This field is required</p>}
                     <p className='mb-3'>Have not any account ? <Link to='/sign-up'><span className='underline'>Cerate Account</span></Link></p>
                     <p className='text-red-800 py-3'>{error}</p>
                     <button type='submit' className='btn  btn-primary font-bold'>Login</button>
@@ -76,4 +87,4 @@ const Login = () => {
     );
 };
 
-export default Login
+export default Login;
