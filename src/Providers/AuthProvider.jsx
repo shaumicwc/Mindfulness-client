@@ -5,7 +5,7 @@ import app from '../Firebase/firebase.config';
 export const AuthContext = createContext()
 
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);

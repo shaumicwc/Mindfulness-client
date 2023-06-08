@@ -10,6 +10,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import Classes from "../Pages/Classes/Classes";
 import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasse";
+import ErrorPage from "../Pages/Shared/ErrorPage/ErrorPage";
 
 
 export const router = createBrowserRouter([
@@ -60,5 +61,9 @@ export const router = createBrowserRouter([
                 element: <MySelectedClasses/>
             }
         ]
+    },
+    {
+        path : '*',
+        element : <ErrorPage/>
     }
 ])

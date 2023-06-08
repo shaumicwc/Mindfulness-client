@@ -31,8 +31,8 @@ const Navbar = () => {
                     </div>
                     </div>
                 <div className='flex items-center md:space-x-5 px-3 md:px-5'>
-                    <img className='w-24 -ml-5 md:-mr-5' src="https://i.ibb.co/59GRBKK/logo.png" alt="logo" border="0" />
-                    <p className=" text-xl hidden md:block md:text-3xl md:font-bold">MindFulness</p>
+                    <img className='w-24 -ml-5 md:-mr-5' src="https://www.logomaker.com/api/main/images/1j+ojlxEOMkX9Wyqfhe43D6kh...KFqhNGkBvOwXs1M3EMoAJtligrhPBj...fgyPExevg9C3ktKMcs8" alt="logo" border="0" />
+                    <p className=" text-xl hidden md:block md:text-3xl text-[#d86b5b] md:font-bold">MindFulness</p>
                 </div>
                </div>
                 {
