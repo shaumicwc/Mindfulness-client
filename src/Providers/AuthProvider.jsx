@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import app from '../Firebase/firebase.config';
-
+import { app } from '../Firebase/Firebase.config';
 
 export const AuthContext = createContext()
 
@@ -48,7 +47,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             unsubscribe();
         };
-    }, [user]);
+    }, []);
 
     const authInfo = {
         user,
