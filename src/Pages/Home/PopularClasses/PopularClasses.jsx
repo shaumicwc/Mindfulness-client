@@ -1,21 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../Hooks/useAuth';
+import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { Helmet } from 'react-helmet';
 
-const Classes = () => {
-    const { user } = useAuth()
+const PopularClasses = () => {
+    const {user} = useAuth()
+    const [classData, setClassData] = useState([])
     const [currentUser, setCurrentUser] = useState({})
-    const { data: allClasses = [], refetch } = useQuery({
-        queryKey: ['all-classes'],
-        queryFn: async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/all-classes`)
-            return response.data
-        }
-    })
-    
+
+    useEffect(() => {
+        axios.get(`${import.meta.env.VITE_BASE_URL}/popular-classes`)
+            .then(res => setClassData(res.data))
+    }, [])
     useEffect(()=>{
         axios.get(`${import.meta.env.VITE_BASE_URL}/current-user?email=${user?.email}`)
         .then(res => {
@@ -31,12 +27,25 @@ const Classes = () => {
                 footer: '<a href="/login">Please login</a>'
             })
             return;
+        } 
+         if (currentUser.role === 'admin') {
+            Swal.fire({
+                icon: 'error',
+                text: 'As an admin you can not select any class',
+            })
+            return;
+        } 
+        if(currentUser.role === 'instructor'){
+            Swal.fire({
+                icon: 'error',
+                text: 'As an instructor you can not select any class',
+            })
+            return;
         }
         const selectedClass = { singleClass, studentEmail: user?.email, classId: singleClass._id }
         axios.post(`${import.meta.env.VITE_BASE_URL}/selected-class`, selectedClass)
             .then(res => {
                 if (res.data.acknowledged) {
-                    refetch()
                     Swal.fire({
                         icon: 'success',
                         text: 'Class selected successfully',
@@ -45,29 +54,27 @@ const Classes = () => {
                 // console.log(res.data)
             })
     }
+    console.log(classData)
+
     return (
-        <>
-        <Helmet>
-            <title>MindFulness || All Classes</title>
-        </Helmet>
         <div className='md:p-10 my-10 flex flex-col'>
             <p className='text-3xl font-bold mb-10 text-center'>All Classes</p>
             <div className='grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 mx-auto gap-5'>
-                {allClasses.map((classes) =>
+                {classData.map((classes) =>
                     <div key={classes._id} className={`card w-80 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
                         <figure><img className='w-80 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">
                             <p className='font-semibold'>Class name: <span className='font-normal'>{classes.className}</span></p>
                             <p className='font-semibold'>Instructor Name: <span className='font-normal'>{classes.instructorName}</span></p>
                             <p className='font-semibold'>Available Seats: <span className='font-normal'>{classes.seats}</span></p>
+                            <p className='font-semibold'>Enrolled Students: <span className='font-normal'>{classes?.enrolledStudents}</span></p>
                             <p className='font-semibold'>Price: <span className='font-normal'>${classes.price}</span></p>
-                            <button disabled={classes.seats === 0 ? 'disabled' : currentUser.role === 'admin' || currentUser.role === 'instructor' ? 'disabled' : ''} onClick={() => handleSelect(classes)} className="btn btn-primary">Select</button>
+                            <button onClick={()=>handleSelect(classes)} className="btn btn-primary">Select</button>
                         </div>
                     </div>)}
             </div>
         </div>
-        </>
     );
 };
 
-export default Classes;
+export default PopularClasses;
