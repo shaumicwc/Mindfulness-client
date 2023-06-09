@@ -3,15 +3,21 @@ import Main from '../Layout/Main'
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import Instructors from "../Pages/Instructors/Instructors";
 import Dashboard from "../Layout/Dashboard";
 import AddClass from "../Pages/Dashboard/AddClass/AddClass";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import Classes from "../Pages/Classes/Classes";
-import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasse";
+import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasses";
 import ErrorPage from "../Pages/Shared/ErrorPage/ErrorPage";
-
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import MyEnrolledClasses from "../Pages/Dashboard/MyEnrolledClasses/MyEnrolledClasses";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
+import StudentRoute from "./StudentRoute";
 
 export const router = createBrowserRouter([
     {
@@ -31,6 +37,10 @@ export const router = createBrowserRouter([
                 element: <SignUp />
             },
             {
+                path: 'instructors',
+                element: <Instructors />
+            },
+            {
                 path: 'classes',
                 element: <Classes/>
             }
@@ -42,28 +52,41 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'add-class',
-                element: <AddClass />
+                element: <InstructorRoute><AddClass /></InstructorRoute>
             },
             {
                 path: 'my-classes',
-                element: <MyClasses />
+                element: <InstructorRoute><MyClasses /></InstructorRoute>
             },
             {
                 path: 'manage-users',
-                element: <ManageUsers/>
+                element: <AdminRoute><ManageUsers/></AdminRoute>
             },
             {
                 path: 'manage-classes',
-                element: <ManageClasses/>
+                element: <AdminRoute><ManageClasses/></AdminRoute>
             },
             {
                 path: 'my-selected-classes',
-                element: <MySelectedClasses/>
+                element: <StudentRoute><MySelectedClasses/></StudentRoute>
+            },
+            {
+                path: 'payment/:id',
+                element : <StudentRoute><Payment/></StudentRoute>,
+                loader : ({params}) => fetch(`${import.meta.env.VITE_BASE_URL}/selected-class/${params.id}`) 
+            },
+            {
+                path: 'my-enrolled-classes',
+                element: <StudentRoute><MyEnrolledClasses/></StudentRoute>
+            },
+            {
+                path: 'payment-history',
+                element: <StudentRoute><PaymentHistory/></StudentRoute>
             }
         ]
     },
     {
         path : '*',
-        element : <ErrorPage/>
+        element: <ErrorPage/>
     }
 ])
