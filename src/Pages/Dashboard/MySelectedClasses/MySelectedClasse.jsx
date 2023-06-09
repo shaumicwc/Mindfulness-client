@@ -3,6 +3,7 @@ import axios from 'axios';
 import React from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MySelectedClasses = () => {
     const {user, loading} = useAuth()
@@ -54,7 +55,7 @@ const MySelectedClasses = () => {
                             <td>{classes.singleClass.instructorName}</td>
                             <td>{classes.singleClass.seats}</td>
                             <td>{classes.singleClass.price}</td>
-                            <td className='flex justify-between'><button onClick={()=>handleDelete(classes._id)} className='btn btn-error'>Delete</button><button className='btn btn-success'>pay</button></td>
+                            <td className='flex justify-between'><button onClick={()=>handleDelete(classes._id)} className='btn btn-error'>Delete</button><Link to={`/dashboard/payment/${classes._id}`}><button className='btn btn-success'>pay</button></Link></td>
                         </tr>)}
                 </tbody>
             </table>
