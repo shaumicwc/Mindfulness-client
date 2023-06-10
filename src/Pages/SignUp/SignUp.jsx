@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Helmet } from "react-helmet";
@@ -15,6 +15,8 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { setUser, loading, setLoading, createUser, googleSignInUser, updateUserProfile } = useAuth()
+    const navigate = useNavigate();
+    
     const onSubmit = async data => {
         const name = data.name
         const email = data.email;
@@ -42,13 +44,14 @@ const Login = () => {
                         updateUserProfile(name, imageUrl)
                             .then(() => {
                                 setLoading(false)
+                                navigate('/')
                             })
                             .catch((err) => {
                                 const errorMessage = err.message;
                                 setLoading(false)
                                 console.log(errorMessage);
                             });
-                        const savedUser = { name: data.name, email: user.email, role: 'student' }
+                        const savedUser = { name: name, image: imageUrl, email: user.email, role: 'student' }
                         axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                     })
                     .catch((err) => {
@@ -73,10 +76,11 @@ const Login = () => {
         googleSignInUser()
             .then(result => {
                 const user = result.user
-                const savedUser = { name: user.displayName, email: user.email, role: 'student' }
+                const savedUser = { name: user.displayName, image : user.photoURL, email: user.email, role: 'student' }
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(result.user)
                 setLoading(false)
+                navigate('/')
             })
             .catch(err => {
                 if (err.message === 'Firebase: Error (auth/popup-closed-by-user).') {

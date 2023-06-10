@@ -58,9 +58,9 @@ const PopularClasses = () => {
 
     return (
         <div className='md:p-10 my-10 flex flex-col'>
-            <p className='text-3xl font-bold mb-10 text-center'>All Classes</p>
-            <div className='grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 mx-auto gap-5'>
-                {classData.map((classes) =>
+            <p className='text-3xl font-bold mb-10 text-center'>Popular Classes</p>
+            <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 mx-auto gap-5'>
+                {classData.slice(0, 6).map((classes) =>
                     <div key={classes._id} className={`card w-80 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
                         <figure><img className='w-80 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">

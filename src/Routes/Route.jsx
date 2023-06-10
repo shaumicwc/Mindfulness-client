@@ -3,21 +3,21 @@ import Main from '../Layout/Main'
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
-import Instructors from "../Pages/Instructors/Instructors";
 import Dashboard from "../Layout/Dashboard";
 import AddClass from "../Pages/Dashboard/AddClass/AddClass";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import Classes from "../Pages/Classes/Classes";
-import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasses";
 import ErrorPage from "../Pages/Shared/ErrorPage/ErrorPage";
-import Payment from "../Pages/Dashboard/Payment/Payment";
-import MyEnrolledClasses from "../Pages/Dashboard/MyEnrolledClasses/MyEnrolledClasses";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import StudentRoute from "./StudentRoute";
+import Instructors from "../Pages/Instructors/Instructors";
+import MySelectedClasses from "../Pages/Dashboard/MySelectedClasses/MySelectedClasse";
+import Payment from "../Pages/Dashboard/Pyment/payment";
+import MyEnrolledClasses from "../Pages/Dashboard/MyEnrrolledClasses/MyEnrrolledClasses";
 
 export const router = createBrowserRouter([
     {

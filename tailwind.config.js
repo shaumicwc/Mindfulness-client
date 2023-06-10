@@ -5,16 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      fontFamily : {
-        'lobster' : 'Lobster'
-      }
-    },
+    extend: {},
   },
   daisyui : {
-    themes : ['light']
+    themes : ["light", 'business']
   },
   plugins: [require('daisyui')],
 }
-
-
