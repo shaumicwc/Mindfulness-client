@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 
+
 const CheckoutForm = ({ price, selectedClass }) => {
     const { user } = useAuth()
     const stripe = useStripe();

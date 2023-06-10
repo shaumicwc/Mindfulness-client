@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import { useAuth } from '../../../Hooks/useAuth';
 
 const MyEnrolledClasses = () => {
+    const {user} = useAuth()
     const { data: enrolledClasses = [], refetch } = useQuery({
         queryKey: ['selected-classes'],
         queryFn: async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/enrolled-classes`)
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/enrolled-classes/${user?.email}`)
             return response.data
         }
     })
@@ -29,10 +31,10 @@ const MyEnrolledClasses = () => {
                     {enrolledClasses.map((classes, index) =>
                         <tr key={classes._id} className='hover'>
                             <th>{index + 1}</th>
-                            <td><img className='w-20' src={classes.singleClass.image} alt="" /></td>
-                            <td>{classes.singleClass.className}</td>
-                            <td>{classes.singleClass.instructorName}</td>
-                            <td>{classes.singleClass.instructorEmail}</td>
+                            <td><img className='w-20' src={classes?.singleClass?.image} alt="" /></td>
+                            <td>{classes?.singleClass?.className}</td>
+                            <td>{classes?.singleClass?.instructorName}</td>
+                            <td>{classes?.singleClass?.instructorEmail}</td>
                         </tr>)}
                 </tbody>
             </table>

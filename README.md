@@ -1,10 +1,21 @@
-## Key Featured :
+## Features : 
+    * By default every new user will be a student.
+    * Only instructors can add classes from his/her Dashboard. By default a class status will pending. The status will change if admin approve or denies the class. 
+    * Only admin can see the all users and can change the user role student to instructor or admin. Only he can approve or denies the classes by added a instructor. An admin can send a feedback why he/she approved or denied the class.
+    * A student can select a class and see all classes that he/she added in his/her dashboard.
+    * Student, Admin and Instructor Dashboard are protected by private route based on their email address and role
 
-* 3 different roles has been assigned to do complete different work.
-* Payment method has been implemented to enroll class.
-* Admin can control which class should be approved or should not.
-* Instructors can add class with appropriate and details information.
-* By using in Backend MongoDb, Express Js, React Js Node Js gave complete MERN Stack Project  
+## Used Technology : 
+    * HTML5
+    * Tailwind CSS
+    * DaisyUI
+    * Firebase
+    * Node.js
+    * React.js
+    * React-Router
+    * Express.js
+    * MongoDB
+
 
 ### Vercel Production Link: https://mind-fulness-server-five.vercel.app
 ### Live Firebase Link : https://mindfulness-3d055.web.app/

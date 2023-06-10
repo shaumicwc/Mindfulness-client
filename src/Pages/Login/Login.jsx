@@ -79,12 +79,12 @@ const Login = () => {
                 {
                     loading && <Loader />
                 }
-                <p className='text-4xl font-bold text-center mb-5'>Login</p>
+                <p className='text-4xl text-black font-bold text-center mb-5'>Login</p>
                 <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
-                    <label className='text-xl font-semibold mb-3'>Email</label>
+                    <label className='text-xl text-black font-semibold mb-3'>Email</label>
                     <input placeholder='Email' className='mb-5 p-3 focus:outline-none' {...register('email', { required: true })} />
                     {errors?.email?.type === 'required' && <p className='text-red-800 mb-2'>This field is required</p>}
-                    <label className='text-xl font-semibold mb-3'>Password</label>
+                    <label className='text-xl text-black font-semibold mb-3'>Password</label>
                     <div className='relative w-full'>
                         <input placeholder='Password' className='mb-5 w-full p-3 focus:outline-none' type={show ? 'text' : 'password'} {...register('password', { required: true })} />
                         <div onClick={() => setShow(!show)} className='absolute inset-y-0 right-3 top-3.5'>
@@ -92,7 +92,7 @@ const Login = () => {
                         </div>
                     </div>
                     {errors?.password?.type === 'required' && <p className='text-red-800 mb-2'>This field is required</p>}
-                    <p className='mb-3'>Have not any account ? <Link to='/sign-up'><span className='underline'>Cerate Account</span></Link></p>
+                    <p className='mb-3 text-black'>Have not any account ? <Link to='/sign-up'><span className='underline text-black'>Cerate Account</span></Link></p>
                     <p className='text-red-800 py-3'>{error}</p>
                     <button type='submit' className='btn  btn-primary font-bold'>Login</button>
                 </form>
