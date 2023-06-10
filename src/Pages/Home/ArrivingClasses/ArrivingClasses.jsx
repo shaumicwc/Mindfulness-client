@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import { Flip } from 'react-awesome-reveal';
 
 const ArrivingClasses = () => {
 
@@ -18,15 +19,18 @@ const ArrivingClasses = () => {
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                 {
                     arrivingClasses.map(arrivingClass =>
-                        <div key={arrivingClass._id} className="card w-96 bg-base-100 shadow-2xl">
-                            <figure><img src={arrivingClass.image} alt={arrivingClass.className} /></figure>
+                       <Flip>
+                         <div key={arrivingClass._id} className="card w-80 group glass shadow-2xl">
+                            <figure><img className='w-full h-72 group-hover:scale-110' src={arrivingClass.image} alt={arrivingClass.className} /></figure>
                             <div className="card-body">
                                 <h2 className="card-title">{arrivingClass.className}</h2>
                                 <p className='font-semibold'>Seats: <span className='font-normal'>{arrivingClass.seats}</span></p>
                                 <p className='font-semibold'>Price: <span className='font-normal'>${arrivingClass.price}</span></p>
-                                <button className="btn btn-primary">Buy Now</button>
+                                <button className="btn btn-primary">Enroll Now!</button>
                             </div>
-                        </div>)
+                        </div>
+                       </Flip>
+                        )
                 }
             </div>
         </div>

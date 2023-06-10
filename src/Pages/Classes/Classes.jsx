@@ -11,7 +11,7 @@ const Classes = () => {
     const { data: allClasses = [], refetch } = useQuery({
         queryKey: ['all-classes'],
         queryFn: async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/all-classes`)
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/approved-all-classes`)
             return response.data
         }
     })
@@ -50,12 +50,12 @@ const Classes = () => {
         <Helmet>
             <title>MindFulness || All Classes</title>
         </Helmet>
-        <div className='md:p-10 my-10 flex flex-col'>
+        <div className='md:p-10 my-10 mx-auto w-11/12'>
             <p className='text-3xl font-bold mb-10 text-center'>All Classes</p>
-            <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 mx-auto gap-5'>
+            <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5'>
                 {allClasses.map((classes) =>
                     <div key={classes._id} className={`card w-96 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
-                        <figure><img className='w-96 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
+                        <figure><img className='w-full h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">
                             <p className='font-semibold'>Class name: <span className='font-normal'>{classes.className}</span></p>
                             <p className='font-semibold'>Instructor Name: <span className='font-normal'>{classes.instructorName}</span></p>

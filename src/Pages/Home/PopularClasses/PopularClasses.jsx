@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { Bounce } from 'react-awesome-reveal';
 
 const PopularClasses = () => {
     const {user} = useAuth()
@@ -57,10 +58,11 @@ const PopularClasses = () => {
     console.log(classData)
 
     return (
-        <div className='md:p-10 my-10 flex flex-col'>
+        <div className='md:p-10 my-10 mx-auto w-11/12'>
             <p className='text-3xl font-bold mb-10 text-center'>Popular Classes</p>
-            <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 mx-auto gap-5'>
-                {classData.slice(0, 6).map((classes) =>
+            <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5'>
+                {classData.slice(0,6).map((classes) =>
+                <Bounce>
                     <div key={classes._id} className={`card w-80 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
                         <figure><img className='w-80 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">
@@ -71,7 +73,11 @@ const PopularClasses = () => {
                             <p className='font-semibold'>Price: <span className='font-normal'>${classes.price}</span></p>
                             <button onClick={()=>handleSelect(classes)} className="btn btn-primary">Select</button>
                         </div>
-                    </div>)}
+                    </div>
+                </Bounce>
+                    
+                    )
+                    }
             </div>
         </div>
     );
