@@ -4,6 +4,7 @@ import React from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const MySelectedClasses = () => {
     const {user, loading} = useAuth()
@@ -21,10 +22,7 @@ const MySelectedClasses = () => {
         .then(res =>{
             if (res.data.deletedCount > 0) {
                 refetch()
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Class deleted successfully',
-                  })
+                toast.success('Class deleted successfully')
             }
             console.log(res.data)
         })

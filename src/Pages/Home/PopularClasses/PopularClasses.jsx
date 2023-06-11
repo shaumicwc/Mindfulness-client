@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { Bounce } from 'react-awesome-reveal';
+import { Bounce, Fade } from 'react-awesome-reveal';
+import { toast } from 'react-hot-toast';
 
 const PopularClasses = () => {
     const {user} = useAuth()
@@ -22,47 +23,34 @@ const PopularClasses = () => {
 
     const handleSelect = (singleClass) => {
         if(!user){
-            Swal.fire({
-                icon: 'error',
-                text: 'Without login you can not select class',
-                footer: '<a href="/login">Please login</a>'
-            })
+            toast.error('Without login you can not select class')
             return;
         } 
          if (currentUser.role === 'admin') {
-            Swal.fire({
-                icon: 'error',
-                text: 'As an admin you can not select any class',
-            })
+            toast.error('As an admin you can not select any class')
             return;
         } 
         if(currentUser.role === 'instructor'){
-            Swal.fire({
-                icon: 'error',
-                text: 'As an instructor you can not select any class',
-            })
+            toast.error('As an instructor you can not select any class')
             return;
         }
         const selectedClass = { singleClass, studentEmail: user?.email, classId: singleClass._id }
         axios.post(`${import.meta.env.VITE_BASE_URL}/selected-class`, selectedClass)
             .then(res => {
                 if (res.data.acknowledged) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Class selected successfully',
-                    })
+                    toast.success('Class selected successfully')
                 }
                 // console.log(res.data)
             })
     }
-    console.log(classData)
+    // console.log(classData)
 
     return (
-        <div className='md:p-10 my-10 mx-auto w-11/12'>
+        <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
             <p className='text-3xl font-bold mb-10 text-center'>Popular Classes</p>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5'>
                 {classData.slice(0,6).map((classes) =>
-                <Bounce>
+                <Fade>
                     <div key={classes._id} className={`card w-80 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
                         <figure><img className='w-80 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">
@@ -74,7 +62,7 @@ const PopularClasses = () => {
                             <button onClick={()=>handleSelect(classes)} className="btn btn-primary">Select</button>
                         </div>
                     </div>
-                </Bounce>
+                </Fade>
                     
                     )
                     }

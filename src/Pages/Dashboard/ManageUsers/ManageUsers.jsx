@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { FaUserAlt } from 'react-icons/fa';
 import { RiAdminFill } from 'react-icons/ri';
 import Swal from 'sweetalert2';
@@ -19,10 +20,7 @@ const ManageUsers = () => {
         .then(res => {
             if (res.data.modifiedCount > 0) {
                 refetch()
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Role updated Successfully',
-                  })
+                toast.success('Role updated Successfully')
             }
             console.log(res.data)
         })

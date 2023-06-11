@@ -14,7 +14,7 @@ const PopularInstructors = () => {
     })
     // console.log(instructors)
     return (
-        <div className='px-6 md:px-10 mb-10'>
+        <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
             <p className='text-4xl uppercase font-bold text-center mb-5'>Our Popular Instructors</p>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5 mx-auto'>
                     {

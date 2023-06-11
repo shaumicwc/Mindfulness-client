@@ -14,7 +14,7 @@ const ArrivingClasses = () => {
     })
     console.log(arrivingClasses)
     return (
-        <div className='px-6 md:px-10 mb-10 mx-auto w-11/12'>
+        <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
             <p className='text-4xl uppercase font-bold text-center mb-8'>Our new classes are arriving soon. Get ready to enroll.</p>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                 {

@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { toast } from 'react-hot-toast';
 
 const AddClass = () => {
     const {user} = useAuth()
@@ -25,14 +26,13 @@ const AddClass = () => {
         await axios.post(`${import.meta.env.VITE_BASE_URL}/all-classes`, classes)
         .then(res => {
             if (res.data.acknowledged) {
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Class added successfully',
-                  })
+                toast.success('Class added successfully')
             }
             console.log(res.data)
         })
-        
+        // console.log(response.data.data.display_url)
+
+        // console.log(classImage.files[0])
     }
     return (
         <form onSubmit={handleSubmit} className='w-4/6 bg-base-300 shadow-2xl p-10 my-10'>

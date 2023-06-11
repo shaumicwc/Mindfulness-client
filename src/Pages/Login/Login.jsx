@@ -8,6 +8,7 @@ import { useAuth } from '../../Hooks/useAuth';
 import Loader from '../Shared/Loader/Loader';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const [show, setShow] = useState(true)
@@ -25,10 +26,7 @@ const Login = () => {
         signInUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Login Successfully',
-                })
+                toast.success('Login Successfully')
                 navigate(from, { replace: true });
                 setLoading(false)
                 reset()
@@ -55,10 +53,7 @@ const Login = () => {
                 axios.post(`${import.meta.env.VITE_BASE_URL}/all-users`, savedUser)
                 setUser(user)
                 setLoading(false)
-                Swal.fire({
-                    icon: 'success',
-                    text: 'Login Successfully',
-                  })
+                toast.success('Login Successfully')
                 navigate(from, {replace : true});
             })
             .catch(err => {
@@ -96,8 +91,8 @@ const Login = () => {
                     <p className='text-red-800 py-3'>{error}</p>
                     <button type='submit' className='btn  btn-primary font-bold'>Login</button>
                 </form>
-                <div className='divider'>Or</div>
-                <div onClick={handleGoogleSignIn} className='cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-gray-500 rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
+                <div className='divider text-black'>Or</div>
+                <div onClick={handleGoogleSignIn} className='text-black cursor-pointer flex items-center justify-evenly w-full py-3 px-2 md:px-10 mx-auto border-2 mt-3 border-gray-500 rounded-full'><FcGoogle className='w-7 h-7' /> <p className='font-bold md:text-xl text-center'>Sign in with Google</p></div>
             </div>
         </>
     );

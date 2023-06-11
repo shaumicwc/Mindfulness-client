@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { toast } from 'react-hot-toast';
 
 
 const CheckoutForm = ({ price, selectedClass }) => {
@@ -79,10 +80,7 @@ const CheckoutForm = ({ price, selectedClass }) => {
             .then(res =>{
                 console.log(res.data)
                 if(res.data.insertResult.acknowledged){
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Payment successfully',
-                      })
+                    toast.success('Payment successfully')
                 }
             })
         }
