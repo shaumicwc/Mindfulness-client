@@ -5,6 +5,9 @@ import PopularClasses from '../PopularClasses/PopularClasses';
 import ArrivingClasses from '../ArrivingClasses/ArrivingClasses';
 import Experience from '../Experience/Experience';
 import Featured from '../Featured/Featured';
+import JoinUs from '../JoinUs/JoinUs';
+import Testimonial from '../Testimonial/Testimonial';
+
 
 const Home = () => {
     return (
@@ -12,9 +15,11 @@ const Home = () => {
             <Banner/>
             <Experience/>
             <Featured/>
+            <JoinUs/>
             <PopularClasses/>
             <PopularInstructors/>
             <ArrivingClasses/>
+            <Testimonial/>
         </div>
     );
 };

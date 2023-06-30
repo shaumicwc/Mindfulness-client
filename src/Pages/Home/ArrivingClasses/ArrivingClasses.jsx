@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import { Bounce } from 'react-awesome-reveal';
 
 
 const ArrivingClasses = () => {
@@ -14,12 +15,13 @@ const ArrivingClasses = () => {
     })
     console.log(arrivingClasses)
     return (
+
         <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
-            <p className='text-4xl uppercase font-bold text-center mb-8'>Our new classes are arriving soon. Get ready to enroll.</p>
+            <p className='text-4xl uppercase font-bold text-center mb-8 '>Our new classes are arriving soon. Get ready to enroll.</p>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                 {
                     arrivingClasses.map(arrivingClass =>
-                     
+                     <Bounce>
                          <div key={arrivingClass._id} className="card w-80 group glass shadow-2xl">
                             <figure><img className='w-full h-72 group-hover:scale-110' src={arrivingClass.image} alt={arrivingClass.className} /></figure>
                             <div className="card-body">
@@ -29,6 +31,7 @@ const ArrivingClasses = () => {
                                 <button className="btn btn-primary">Enroll Now!</button>
                             </div>
                         </div>
+                        </Bounce>
                       
                         )
                 }

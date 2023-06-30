@@ -1,17 +1,19 @@
 import React from 'react';
-import { Fade, Slide } from 'react-awesome-reveal';
+import { Fade, Slide, Zoom } from 'react-awesome-reveal';
 
 const Featured = () => {
     return (
         <div>
             <Slide>
-            <h1 className='text-5xl font-bold text-center m-10'>Featured</h1>
+            <h1 className='text-5xl font-bold text-center m-10 uppercase'>Featured</h1>
             </Slide>
            
             <div className='grid grid-cols-2 gap-5 m-10'>
 
                 <div>
+                    <Zoom>
                     <img src="https://img.freepik.com/free-photo/closeup-mudra-gesture-performed-with-young-female-fingers_1163-4092.jpg?w=740&t=st=1688155101~exp=1688155701~hmac=3127166d3e726880625d4a26477750557f89ddc6fbf35bfa1a3974aab9ba2587" alt="" />
+                    </Zoom>
                 </div>
 
                 <div className='text-center p-10'>
@@ -45,7 +47,9 @@ const Featured = () => {
                 </div>
 
                 <div>
+                    <Zoom>
                     <img className='mt-10' src="https://img.freepik.com/free-photo/young-blonde-woman-sportswear-is-meditating-yoga-mat-with-closed-eyes_1268-17236.jpg?w=826&t=st=1688155845~exp=1688156445~hmac=3ea731dd0831878da0fe52b191e5e5ecf48ba10fd0f93279cf8dd7173356be45" alt="" />
+                    </Zoom>
                 </div>
 
             </div>

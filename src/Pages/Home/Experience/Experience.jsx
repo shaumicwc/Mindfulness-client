@@ -1,17 +1,19 @@
 import React from 'react';
-import { Slide } from 'react-awesome-reveal';
+import { Slide, Zoom } from 'react-awesome-reveal';
 import { Fade } from 'react-awesome-reveal';
 
 const Experience = () => {
     return (
         <div>
             <Slide>
-            <h1 className='text-center text-5xl font-bold'>Our Experience </h1>
+            <h1 className='text-center text-5xl font-bold uppercase'>Our Experience </h1>
             </Slide>
             
             <div className='grid grid-cols-2 gap-5 m-10'>
                 <div>
+                    <Zoom>
                     <img src="https://img.freepik.com/free-photo/portrait-young-beautiful-sportive-girl-white-background_176420-5493.jpg?w=740&t=st=1688148115~exp=1688148715~hmac=4e7b33e01f5fafcc9ea6159bf65fed8afa581ef2091fa34360268adf0578d976" alt="" />
+                    </Zoom>
                 </div>
                 <Fade delay={1e3} cascade damping={1e-1}>
                 <div className='pl-10'>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { Bounce, Fade } from 'react-awesome-reveal';
+import { Bounce, Fade, Zoom } from 'react-awesome-reveal';
 import { toast } from 'react-hot-toast';
 
 const PopularClasses = () => {
@@ -47,10 +47,10 @@ const PopularClasses = () => {
 
     return (
         <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
-            <p className='text-5xl font-bold mb-10 text-center'>Popular Classes</p>
+            <p className='text-5xl font-bold mb-10 text-center uppercase'>Popular Classes</p>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5'>
                 {classData.slice(0,6).map((classes) =>
-                <Fade>
+                <Zoom>
                     <div key={classes._id} className={`card w-80 group glass ${classes.seats === 0 && 'bg-red-600'}`}>
                         <figure><img className='w-80 h-80 group-hover:scale-110' src={classes.image} alt="car!" /></figure>
                         <div className="card-body">
@@ -62,7 +62,7 @@ const PopularClasses = () => {
                             <button onClick={()=>handleSelect(classes)} className="btn btn-primary">Select</button>
                         </div>
                     </div>
-                </Fade>
+                </Zoom>
                     
                     )
                     }
