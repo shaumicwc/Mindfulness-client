@@ -47,7 +47,7 @@ const PopularClasses = () => {
 
     return (
         <div className='md:p-10 px-7 my-10 mx-auto w-11/12'>
-            <p className='text-3xl font-bold mb-10 text-center'>Popular Classes</p>
+            <p className='text-5xl font-bold mb-10 text-center'>Popular Classes</p>
             <div className='grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-5'>
                 {classData.slice(0,6).map((classes) =>
                 <Fade>
