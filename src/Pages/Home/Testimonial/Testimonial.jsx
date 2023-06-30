@@ -10,7 +10,7 @@ const Testimonial = () => {
             </Slide>
   
 
-    <div className=" m-10 grid grid-cols-2 gap-6">
+    <div className=" m-10 grid md:grid-cols-2 gap-6">
       <div className="bg-white rounded-lg shadow-2xl p-6">
         <div className="mb-4">
           <img className="w-10 h-10 rounded-full mx-auto" src="https://publicdomainvectors.org/tn_img/female-user-icon.webp" alt=""/>

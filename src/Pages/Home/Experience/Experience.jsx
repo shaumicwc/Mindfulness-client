@@ -9,7 +9,7 @@ const Experience = () => {
             <h1 className='text-center text-5xl font-bold uppercase'>Our Experience </h1>
             </Slide>
             
-            <div className='grid grid-cols-2 gap-5 m-10'>
+            <div className='grid md:grid-cols-2 gap-5 m-10'>
                 <div>
                     <Zoom>
                     <img src="https://img.freepik.com/free-photo/portrait-young-beautiful-sportive-girl-white-background_176420-5493.jpg?w=740&t=st=1688148115~exp=1688148715~hmac=4e7b33e01f5fafcc9ea6159bf65fed8afa581ef2091fa34360268adf0578d976" alt="" />

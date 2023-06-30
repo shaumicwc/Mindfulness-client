@@ -8,7 +8,7 @@ const Featured = () => {
             <h1 className='text-5xl font-bold text-center m-10 uppercase'>Featured</h1>
             </Slide>
            
-            <div className='grid grid-cols-2 gap-5 m-10'>
+            <div className='grid md:grid-cols-2 gap-5 m-10'>
 
                 <div>
                     <Zoom>
@@ -31,7 +31,7 @@ const Featured = () => {
             </div>
             {/* -----------------------2nd sub section----------- */}
 
-            <div className='grid grid-cols-2 gap-5'>
+            <div className='grid md:grid-cols-2 gap-5'>
 
                 <div className='text-center p-10'>
                 <Fade delay={1e3} cascade damping={1e-1}>

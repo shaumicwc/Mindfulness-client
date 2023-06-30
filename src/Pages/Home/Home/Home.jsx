@@ -7,6 +7,7 @@ import Experience from '../Experience/Experience';
 import Featured from '../Featured/Featured';
 import JoinUs from '../JoinUs/JoinUs';
 import Testimonial from '../Testimonial/Testimonial';
+import FAQ from '../FAQ/FAQ';
 
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
             <PopularInstructors/>
             <ArrivingClasses/>
             <Testimonial/>
+            <FAQ/>
         </div>
     );
 };
